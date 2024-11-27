@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Songs by Genre - My Music Store</title>
+  <style type="text/css">
+    body {
+      width: 800px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Welcome to My Music Store</h1>
+</header>
+<main>
+  <h2>Find Songs by Genre:</h2>
+
+  <!-- Genre input field with a separate form to filter songs by genre -->
+  <form th:action="@{/listSongsByGenre}" th:method="GET">
+    <label for="genreInput">Enter Genre:</label>
+    <input type="text" name="genre" id="genreInput" placeholder="e.g., Rock, Pop, Jazz">
+    <button type="submit">Filter by Genre</button>
+  </form>
+
+  <br>
+  <h2>Available Songs:</h2>
+  <form th:method="POST" th:action="@{/artist}">
+    <!-- Display filtered list of songs -->
+    <div th:each="song : ${songList}">
+      <input type="radio" name="songRadio" th:id="${song.getTrackId()}" th:value="${song.getTrackId()}">
+      <label th:for="${song.getTrackId()}"
+             th:text="'Title: ' + ${song.getTitle()} + ', Genre: ' + ${song.getGenre()} + ', Release Year: ' + ${song.getReleaseYear()}"></label>
+      <br>
+    </div>
+    <br>
+    <input type='submit' value='Submit'>
+  </form>
+</main>
+</body>
+</html>
